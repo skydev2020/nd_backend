@@ -14,16 +14,16 @@ module.exports = {
   list(req, res) {
     return User
       .findAll({
-        // include: [{
-        //   model: Task,
-        //   as: 'tasks',
-        // }],
+        include: [{
+          model: Task,
+          as: 'tasks',
+        }],
         order: [
           ['createdAt', 'DESC'],
           // [{ model: Task, as: 'tasks' }, 'createdAt', 'ASC'],
         ],
       })
-      .then((todos) => res.status(200).send(todos))
+      .then((users) => res.status(200).send(users))
       .catch((error) => res.status(400).send(error));    
   },
 

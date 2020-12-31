@@ -11,15 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      belongsTo(models.User, {
+      this.belongsTo(models.User, {
         foreignKey: 'assignee_id',
         onDelete: 'CASCADE',  
       })
     }
   };
   Task.init({
-    title: DataTypes.STRING,
-    created_by: DataTypes.INTEGER,
+    title: DataTypes.STRING,    
     assignee_id: DataTypes.INTEGER
   }, {
     sequelize,

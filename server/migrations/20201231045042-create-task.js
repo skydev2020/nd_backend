@@ -11,15 +11,6 @@ module.exports = {
       title: {
         type: Sequelize.STRING
       },
-      created_by: {
-        type: Sequelize.INTEGER,
-        onDelete: 'CASCADE',
-        references: {
-          model: 'Users',
-          key: 'id',
-          as: 'created_by',
-        },
-      },
       assignee_id: {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
