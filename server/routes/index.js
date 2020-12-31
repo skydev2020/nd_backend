@@ -12,6 +12,7 @@ module.exports = (app) => {
   app.post('/api/users', usersController.create);
   app.get('/api/users/:id', usersController.retrieve);
   app.put('/api/users/:id', usersController.update);
+  app.delete('/api/users/:id', usersController.destroy);
 
   app.get('/api/tasks', tasksController.list);
   app.post('/api/tasks', tasksController.create);
