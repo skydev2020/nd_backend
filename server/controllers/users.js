@@ -20,70 +20,70 @@ module.exports = {
         }],
         order: [
           ['createdAt', 'DESC'],
-          // [{ model: Task, as: 'tasks' }, 'createdAt', 'ASC'],
+          [{ model: Task, as: 'tasks' }, 'createdAt', 'ASC'],
         ],
       })
       .then((users) => res.status(200).send(users))
       .catch((error) => res.status(400).send(error));    
   },
 
-  // retrieve(req, res) {
-  //   return Todo
-  //     .findById(req.params.todoId, {
-  //       include: [{
-  //         model: TodoItem,
-  //         as: 'todoItems',
-  //       }],
-  //     })
-  //     .then((todo) => {
-  //       if (!todo) {
-  //         return res.status(404).send({
-  //           message: 'Todo Not Found',
-  //         });
-  //       }
-  //       return res.status(200).send(todo);
-  //     })
-  //     .catch((error) => res.status(400).send(error));
-  // },
+  retrieve(req, res) {
+    return User
+      .findById(req.params.id, {
+        include: [{
+          model: Task,
+          as: 'tasks',
+        }],
+      })
+      .then((user) => {
+        if (!user) {
+          return res.status(404).send({
+            message: 'User with specified id Not Found',
+          });
+        }
+        return res.status(200).send(user);
+      })
+      .catch((error) => res.status(400).send(error));
+  },
 
-  // update(req, res) {
-  //   return Todo
-  //     .findById(req.params.todoId, {
-  //       include: [{
-  //         model: TodoItem,
-  //         as: 'todoItems',
-  //       }],
-  //     })
-  //     .then(todo => {
-  //       if (!todo) {
-  //         return res.status(404).send({
-  //           message: 'Todo Not Found',
-  //         });
-  //       }
-  //       return todo
-  //         .update({
-  //           title: req.body.title || todo.title,
-  //         })
-  //         .then(() => res.status(200).send(todo))
-  //         .catch((error) => res.status(400).send(error));
-  //     })
-  //     .catch((error) => res.status(400).send(error));
-  // },
+  update(req, res) {
+    return User
+      .findById(req.params.id, {
+        include: [{
+          model: Task,
+          as: 'tasks',
+        }],
+      })
+      .then(user => {
+        if (!user) {
+          return res.status(404).send({
+            message: 'User Not Found',
+          });
+        }
+        return user
+          .update({
+            name: req.body.name || user.name
+          })
+          .then(() => res.status(200).send(user))
+          .catch((error) => res.status(400).send(error));
+      })
+      .catch((error) => res.status(400).send(error));
+  },
 
-  // destroy(req, res) {
-  //   return Todo
-  //     .findById(req.params.todoId)
-  //     .then(todo => {
-  //       if (!todo) {
-  //         return res.status(400).send({
-  //           message: 'Todo Not Found',
-  //         });
-  //       }
-  //       return todo
-  //         .destroy()
-  //         .then(() => res.status(204).send())
-  //         .catch((error) => res.status(400).send(error));
-  //     })
-  //     .catch((error) => res.status(400).send(error));
-  // },
+  destroy(req, res) {
+    return User
+      .findById(req.params.id)
+      .then(user => {
+        if (!user) {
+          return res.status(400).send({
+            message: 'User with that id Not Found',
+          });
+        }
+        return user
+          .destroy()
+          .then(() => res.status(204).send())
+          .catch((error) => res.status(400).send(error));
+      })
+      .catch((error) => res.status(400).send(error));
+  },
 };
