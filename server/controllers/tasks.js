@@ -1,15 +1,15 @@
 const Task = require('../models').Task;
 
 module.exports = {
-  // create(req, res) {
-  //   return Task
-  //     .create({
-  //       title: req.body.title,
-  //       assignee_id: req.params.assignee_id,
-  //     })
-  //     .then(task => res.status(201).send(task))
-  //     .catch(error => res.status(400).send(error));
-  // },
+  create(req, res) {
+    return Task
+      .create({
+        title: req.body.title,
+        assignee_id: req.body.assignee_id,
+      })
+      .then(task => res.status(201).send(task))
+      .catch(error => res.status(400).send(error));
+  },
 
   list(req, res) {
     return Task
@@ -19,7 +19,7 @@ module.exports = {
         ]
       })
       .then((tasks) => res.status(200).send(tasks))
-      .catch((error) => res.status(400).send(error))
+      .catch((error) => res.status(400).send(error));
   },
 
   // update(req, res) {
