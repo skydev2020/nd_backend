@@ -2,6 +2,7 @@ const todosController = require('../controllers').todos;
 const tasksController = require('../controllers').tasks;
 const usersController = require('../controllers').users;
 const todoItemsController = require('../controllers').todoItems;
+const commentsController = require('../controllers').comments;
 
 module.exports = (app) => {
   app.get('/api', (req, res) => res.status(200).send({
@@ -21,6 +22,12 @@ module.exports = (app) => {
   app.get('/api/tasks/:id', tasksController.retrieve);
   app.put('/api/tasks/:id/assign', tasksController.assign);
   app.put('/api/tasks/:id/unassign', tasksController.unassign);
+
+  app.get('/api/comments', commentsController.list);
+  app.post('/api/comments', commentsController.create);
+  app.get('/api/comments/:id', commentsController.retrieve);
+  app.put('/api/comments/:id', commentsController.update);
+  app.delete('/api/comments/:id', commentsController.destroy);
 
   app.post('/api/todos', todosController.create);
   app.get('/api/todos', todosController.list);

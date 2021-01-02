@@ -1,5 +1,6 @@
 const User = require('../models').User;
 const Task = require('../models').Task;
+const Comment = require('../models').Comment;
 
 module.exports = {
   create(req, res) {
@@ -17,6 +18,9 @@ module.exports = {
         include: [{
           model: Task,
           as: 'tasks',
+        },{
+          model: Comment,
+          as: 'comments',
         }],
         order: [
           ['createdAt', 'DESC'],
@@ -33,6 +37,9 @@ module.exports = {
         include: [{
           model: Task,
           as: 'tasks',
+        },{
+          model: Comment,
+          as: 'comments',
         }],
       })
       .then((user) => {

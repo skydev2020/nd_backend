@@ -14,7 +14,13 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.Task, {
         foreignKey: 'assignee_id',
         as: 'tasks',
+      });
+
+      this.hasMany(models.Comment, {
+        foreignKey: 'created_by',
+        as: 'comments',
       })
+
     }
   };
   User.init({
