@@ -1,4 +1,5 @@
 const Task = require('../models').Task;
+const User = require('../models').User;
 
 module.exports = {
   create(req, res) {
@@ -14,6 +15,10 @@ module.exports = {
   list(req, res) {
     return Task
       .findAll({
+        include: [{
+          model: User,
+          as: 'assignee',
+        }],
         order: [
           ['createdAt', 'DESC']
         ]
