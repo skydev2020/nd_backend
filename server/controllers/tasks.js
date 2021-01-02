@@ -1,6 +1,7 @@
 const Task = require('../models').Task;
 const User = require('../models').User;
 const Comment = require('../models').Comment;
+const Project = require('../models').Project;
 
 module.exports = {
   create(req, res) {
@@ -8,6 +9,7 @@ module.exports = {
       .create({
         title: req.body.title,
         assignee_id: req.body.assignee_id,
+        project_id: req.body.project_id,
       })
       .then(task => res.status(201).send(task))
       .catch(error => res.status(400).send(error));
@@ -19,6 +21,9 @@ module.exports = {
         include: [{
           model: User,
           as: 'assignee',
+        },{
+          model: Project,
+          as: 'project',
         }],
         order: [
           ['createdAt', 'DESC']
@@ -46,6 +51,7 @@ module.exports = {
           .update({
             title: req.body.title || task.title,
             assignee_id: req.body.assignee_id || task.assignee_id,
+            project_id: req.body.project_id || task.project_id,
           })
           .then(updatedTask => res.status(200).send(updatedTask))
           .catch(error => res.status(400).send(error));
@@ -136,6 +142,9 @@ module.exports = {
         include: [{
           model: User,
           as: 'assignee',
+        },{
+          model: Project,
+          as: 'project',
         }],
       })
       .then((task) => {

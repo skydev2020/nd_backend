@@ -3,6 +3,7 @@ const tasksController = require('../controllers').tasks;
 const usersController = require('../controllers').users;
 const todoItemsController = require('../controllers').todoItems;
 const commentsController = require('../controllers').comments;
+const projectsController = require('../controllers').projects;
 
 module.exports = (app) => {
   app.get('/api', (req, res) => res.status(200).send({
@@ -29,6 +30,13 @@ module.exports = (app) => {
   app.get('/api/comments/:id', commentsController.retrieve);
   app.put('/api/comments/:id', commentsController.update);
   app.delete('/api/comments/:id', commentsController.destroy);
+
+  app.get('/api/projects', projectsController.list);
+  app.post('/api/projects', projectsController.create);
+  app.get('/api/projects/:id', projectsController.retrieve);
+  app.put('/api/projects/:id', projectsController.update);
+  app.delete('/api/projects/:id', projectsController.destroy);
+  app.post('/api/projects/:id/add_task', projectsController.addTask);
 
   app.post('/api/todos', todosController.create);
   app.get('/api/todos', todosController.list);

@@ -16,6 +16,11 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'SET NULL',
         as: 'assignee'
       })
+      this.belongsTo(models.Project, {
+        foreignKey: 'project_id',
+        onDelete: 'CASCADE',
+        as: 'project'
+      })
     }
   };
   Task.init({
