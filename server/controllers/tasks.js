@@ -44,6 +44,58 @@ module.exports = {
         return task
           .update({
             title: req.body.title || task.title,
+            assignee_id: req.body.assignee_id || task.assignee_id,
+          })
+          .then(updatedTask => res.status(200).send(updatedTask))
+          .catch(error => res.status(400).send(error));
+      })
+      .catch(error => res.status(400).send(error));
+  },
+
+  // assign the task to specific user
+  //This feature is similar to upate but just change assignee_id attribute
+  assign(req, res) {
+    return Task
+      .find({
+        where: {
+          id: req.params.id,
+        },
+      })
+      .then(task => {
+        if (!task) {
+          return res.status(404).send({
+            message: 'Task Not Found',
+          });
+        }
+
+        return task
+          .update({
+            assignee_id: req.body.assignee_id || task.assignee_id,
+          })
+          .then(updatedTask => res.status(200).send(updatedTask))
+          .catch(error => res.status(400).send(error));
+      })
+      .catch(error => res.status(400).send(error));
+  },
+
+
+  unassign(req, res) {
+    return Task
+      .find({
+        where: {
+          id: req.params.id,
+        },
+      })
+      .then(task => {
+        if (!task) {
+          return res.status(404).send({
+            message: 'Task Not Found',
+          });
+        }
+
+        return task
+          .update({
+            assignee_id: null,
           })
           .then(updatedTask => res.status(200).send(updatedTask))
           .catch(error => res.status(400).send(error));

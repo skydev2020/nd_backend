@@ -19,6 +19,8 @@ module.exports = (app) => {
   app.put('/api/tasks/:id', tasksController.update);
   app.delete('/api/tasks/:id', tasksController.destroy);
   app.get('/api/tasks/:id', tasksController.retrieve);
+  app.put('/api/tasks/:id/assign', tasksController.assign);
+  app.put('/api/tasks/:id/unassign', tasksController.unassign);
 
   app.post('/api/todos', todosController.create);
   app.get('/api/todos', todosController.list);
