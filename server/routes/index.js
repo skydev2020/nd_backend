@@ -22,6 +22,7 @@ module.exports = (app) => {
   app.get('/api/tasks/:id', tasksController.retrieve);
   app.put('/api/tasks/:id/assign', tasksController.assign);
   app.put('/api/tasks/:id/unassign', tasksController.unassign);
+  app.post('/api/tasks/:id/add_comment', tasksController.addComment);
 
   app.get('/api/comments', commentsController.list);
   app.post('/api/comments', commentsController.create);

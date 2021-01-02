@@ -1,5 +1,6 @@
 const Task = require('../models').Task;
 const User = require('../models').User;
+const Comment = require('../models').Comment;
 
 module.exports = {
   create(req, res) {
@@ -78,7 +79,6 @@ module.exports = {
       .catch(error => res.status(400).send(error));
   },
 
-
   unassign(req, res) {
     return Task
       .find({
@@ -98,6 +98,33 @@ module.exports = {
             assignee_id: null,
           })
           .then(updatedTask => res.status(200).send(updatedTask))
+          .catch(error => res.status(400).send(error));
+      })
+      .catch(error => res.status(400).send(error));
+  },
+
+  //Add Comment
+  addComment(req, res) {
+    return Task
+      .find({
+        where: {
+          id: req.params.id,
+        },
+      })
+      .then(task => {
+        if (!task) {
+          return res.status(404).send({
+            message: 'Task Not Found',
+          });
+        }
+
+        return Comment
+          .create({
+            content: req.body.content,
+            created_by: req.body.user_id,
+            task_id: task.id
+          })
+          .then(comment => res.status(201).send(comment))
           .catch(error => res.status(400).send(error));
       })
       .catch(error => res.status(400).send(error));
